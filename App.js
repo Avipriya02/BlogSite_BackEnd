@@ -1,11 +1,15 @@
 const express = require('express');
+
 const { connectDB } = require('./config/database');
+
 
 const app = express();
 
-app.get("/",(req,res)=>{
-    res.status(200).send("Hello Wrold!");
-})
+app.use(express.json());
+
+const authRouter  = require('./routes/auth');
+
+app.use('/',authRouter);
 
 connectDB().then(()=>{
     console.log("Database Connected Successfully!")
